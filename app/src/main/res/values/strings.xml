@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Multi Bundle Preview</string>
+    <string name="btn_item_text">LaunchItem</string>
+    <string name="btn_cart_text">LaunchCart</string>
+    <string name="app_item">Item</string>
+    <string name="app_cart">CartRN</string>
+    <string name="app_cart_title">CartRN</string>
+    <string name="asset_name_cart">cart</string>
+    <string name="asset_name_item">item</string>
+</resources>

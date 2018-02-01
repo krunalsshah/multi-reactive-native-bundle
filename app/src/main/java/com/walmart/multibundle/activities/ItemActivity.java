@@ -8,10 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.walmart.multibundle.R;
-import com.walmart.multibundle.ReactHelper;
+import com.walmart.multibundle.ReactDelegate;
 
 public class ItemActivity extends AppCompatActivity {
     private String appName;
@@ -31,25 +33,31 @@ public class ItemActivity extends AppCompatActivity {
         appName = getString(R.string.app_item);
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        View reactRootView = ReactHelper.startApplication(getApplication(), appName, getString(R.string.asset_name_item));
-        this.setContentView(reactRootView);
+        getSupportActionBar().setTitle(appName);
+        View reactRootView = ReactDelegate.startApplication(getApplication(), appName, getString(R.string.asset_name_item));
+        if (reactRootView != null) {
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            FrameLayout contentArea = findViewById(R.id.fragment_container);
+            contentArea.addView(reactRootView, layoutParams);
+        }
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (ReactHelper.getReactInstanceManager(appName) != null) {
-            ReactHelper.getReactInstanceManager(appName).onHostPause(this);
+        if (ReactDelegate.getReactInstanceManager(appName) != null) {
+            ReactDelegate.getReactInstanceManager(appName).onHostPause(this);
         }
+        ReactDelegate.resetReactRootView(appName);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (ReactHelper.getReactInstanceManager(appName) != null) {
-            ReactHelper.getReactInstanceManager(appName).onHostResume(this, new DefaultHardwareBackBtnHandler() {
+        if (ReactDelegate.getReactInstanceManager(appName) != null) {
+            ReactDelegate.getReactInstanceManager(appName).onHostResume(this, new DefaultHardwareBackBtnHandler() {
                 @Override
                 public void invokeDefaultOnBackPressed() {
                     onBackPressed();
@@ -61,12 +69,12 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (ReactHelper.getReactInstanceManager(appName) != null) {
-            ReactHelper.getReactInstanceManager(appName).onHostDestroy(this);
+        if (ReactDelegate.getReactInstanceManager(appName) != null) {
+            ReactDelegate.getReactInstanceManager(appName).onHostDestroy(this);
         }
-        if (ReactHelper.getReactRootView(appName) != null) {
-            ReactHelper.getReactRootView(appName).unmountReactApplication();
-            ReactHelper.resetReactRootView(appName);
+        if (ReactDelegate.getReactRootView(appName) != null) {
+            ReactDelegate.getReactRootView(appName).unmountReactApplication();
+            ReactDelegate.resetReactRootView(appName);
         }
     }
 }

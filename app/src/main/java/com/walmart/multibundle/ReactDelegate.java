@@ -14,7 +14,7 @@ import java.util.Map;
  * Helper class to react native operations
  */
 
-public class ReactHelper {
+public class ReactDelegate {
 
     private static Map<String, RNInstanceHolder> viewMap = new HashMap<>();
 
@@ -30,22 +30,22 @@ public class ReactHelper {
 
     }
 
-    public static ReactInstanceManager getReactInstanceManager(String appName){
-        if(viewMap.get(appName) !=null){
+    public static ReactInstanceManager getReactInstanceManager(String appName) {
+        if (viewMap.get(appName) != null) {
             return viewMap.get(appName).getReactInstanceManager();
         }
         return null;
     }
 
-    public static ReactRootView getReactRootView(String appName){
-        if(viewMap.get(appName) !=null){
+    public static ReactRootView getReactRootView(String appName) {
+        if (viewMap.get(appName) != null) {
             return viewMap.get(appName).getRootView();
         }
         return null;
     }
 
-    public static void resetReactRootView(String appName){
-        if(viewMap.get(appName) != null){
+    public static void resetReactRootView(String appName) {
+        if (viewMap.get(appName) != null) {
             RNInstanceHolder holder = viewMap.get(appName);
             holder.setRootView(null);
             viewMap.put(appName, holder);

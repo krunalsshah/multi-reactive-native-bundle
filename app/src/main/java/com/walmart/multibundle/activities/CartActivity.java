@@ -73,7 +73,7 @@ public class CartActivity extends AppCompatActivity {
         }
         if (ReactDelegate.getReactRootView(appName) != null) {
             ReactDelegate.getReactRootView(appName).unmountReactApplication();
-            ReactDelegate.resetReactRootView(appName);
         }
+        ReactDelegate.resetRNInstanceHolder(appName);
     }
 }

@@ -52,6 +52,12 @@ public class ReactDelegate {
         }
     }
 
+    public static void resetRNInstanceHolder(String appName) {
+        if (viewMap.get(appName) != null) {
+            viewMap.remove(appName);
+        }
+    }
+
     private static ReactInstanceManager getReactInstanceManager(Application application, String assetName) {
         return ReactInstanceManager.builder()
                 .setApplication(application)

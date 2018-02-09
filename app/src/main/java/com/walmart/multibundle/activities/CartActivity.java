@@ -17,6 +17,8 @@ import com.walmart.multibundle.ReactDelegate;
 
 public class CartActivity extends AppCompatActivity {
     private String appName;
+    private static final String BUNDLE = "cart";
+    private static final String BUNDLE_XL = "cart.xl";
 
     public static void launch(@NonNull Context context) {
         Intent intent = new Intent(context, CartActivity.class);
@@ -34,7 +36,7 @@ public class CartActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(getString(R.string.app_cart_title));
-        View reactRootView = ReactDelegate.startApplication(getApplication(), appName, getString(R.string.asset_name_cart));
+        View reactRootView = ReactDelegate.startApplication(getApplication(), appName, BUNDLE_XL);
         if (reactRootView != null) {
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
